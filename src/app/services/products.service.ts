@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { catchError, retry, retryWhen } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 
 import { CreateProductDTO, Product, UpdateProductDto } from './../models/product.model';
 import { throwError } from 'rxjs';
@@ -26,7 +26,13 @@ export class ProductsService {
       /* Inidca cuantas veces se requiere reintentar la petición, también se puede
       usar con base en una condicionar con un retryWhen y colocandole un delay de tiempo
       en cada reintento */
-      retry(3)
+      retry(3),
+      map(products => products.map(item => { 
+        return {
+          ...item,
+          taxes: .19 * item.price
+        }
+      }))
     );
   }
 
@@ -48,7 +54,7 @@ export class ProductsService {
           }
 
           return throwError('Ups.. algo salió mal!');
-          
+
         })
       );
   }
