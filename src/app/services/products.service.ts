@@ -3,7 +3,7 @@ import { HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode } from '@angu
 import { catchError, map, retry } from 'rxjs/operators';
 
 import { CreateProductDTO, Product, UpdateProductDto } from './../models/product.model';
-import { throwError } from 'rxjs';
+import { throwError, zip } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,13 @@ export class ProductsService {
         }
       }))
     );
+  }
+
+  fetchReadAndUpdate(id: string, dto: UpdateProductDto) {
+    return zip(
+      this.getProduct(id),
+      this.update(id, dto)
+    )
   }
 
   getProduct(id: string) {

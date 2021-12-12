@@ -6,6 +6,8 @@ import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
 
 import SwiperCore from 'swiper';
+import { switchMap } from 'rxjs/operators';
+import { zip } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -71,6 +73,30 @@ export class ProductsComponent implements OnInit {
         console.log(error);
         this.statusDetail = 'error';
       });
+  }
+
+  readAndUpdate(id: string) {
+    this.productsService.getProduct(id)
+    .pipe(
+      switchMap((product) => {
+        return this.productsService.update(id, {title: 'change'})
+      })
+      /* Se pueden ir anidando más peticiones, donde la respuesta de una
+      otorga el valor para la siguiente pertición, ejemplo: */
+      //switchMap((product) => this.productsService.update(id, {title: 'change1'}) ),
+      //switchMap((product) => this.productsService.update(id, {title: 'change2'}) )
+    ) 
+    //Una vez que se terminó la ejecución se obtiene el resultado final en data 
+    .subscribe(data => {
+      console.log(data);
+    });
+
+    this.productsService.fetchReadAndUpdate(id, {title: 'new'})
+    .subscribe( response => {
+      const read = response[0];
+      const update = response[1];
+    });
+ 
   }
 
   createNewProduct () {
