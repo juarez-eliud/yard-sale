@@ -4,13 +4,14 @@ import { catchError, map, retry } from 'rxjs/operators';
 
 import { CreateProductDTO, Product, UpdateProductDto } from './../models/product.model';
 import { throwError, zip } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  private apiUrl = 'https://young-sands-07814.herokuapp.com/api/products';
+  private apiUrl = `${environment.API_URL}/api/products`;
   constructor(
     private http: HttpClient
   ) { }
