@@ -14,7 +14,6 @@ export class NavComponent implements OnInit {
 
   activeMenu = false;
   counter = 0;
-  token = '';
   profile: User | null = null;
 
   // profile: User = {
@@ -41,14 +40,7 @@ export class NavComponent implements OnInit {
   }
 
   loginAndGetProfile() {
-    this.authService.login('ejuarez@hotmail.com','0123456' )
-    .pipe(
-      switchMap(rta => {       
-        //Una vez logeado se guarda el token para su uso posterior
-        this.token = rta.access_token;     
-        return this.authService.profile(rta.access_token);
-      })
-    )
+    this.authService.loginAndGetProfile('ejuarez@hotmail.com','0123456')
     .subscribe(user => {  
       this.profile = user;
     });

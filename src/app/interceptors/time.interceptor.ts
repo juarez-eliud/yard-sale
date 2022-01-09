@@ -29,5 +29,6 @@ export class TimeInterceptor implements HttpInterceptor {
         console.log(request.url, time);
       })
     );
+    //Esto se ejecuta después de cada petición
   }
 }
