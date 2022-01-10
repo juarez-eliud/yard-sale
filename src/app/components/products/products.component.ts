@@ -1,24 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 import { CreateProductDTO, Product, UpdateProductDto } from '../../models/product.model';
 
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
-
-import SwiperCore from 'swiper';
 import { switchMap } from 'rxjs/operators';
-import { zip } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent   {
 
   myShoppingCart: Product[] = [];
   total = 0;
-  products: Product[] = [];
+  @Input() products: Product[] = [];
+  @Output() loadMore = new EventEmitter();
   showProductDetail = false;
 
   productChosen: Product = {
@@ -33,8 +31,7 @@ export class ProductsComponent implements OnInit {
     description: ''
   };
 
-  limit = 10;
-  offset = 0;
+
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
@@ -44,13 +41,7 @@ export class ProductsComponent implements OnInit {
     this.myShoppingCart = this.storeService.getShoppingCart();
   }
 
-  ngOnInit(): void {
-    this.productsService.getAllProducts(this.limit, this.offset)
-    .subscribe(data => {
-      this.products = data;
-      this.offset += this.limit;
-    });
-  }
+
 
   onAddToShoppingCart(product: Product) {
     this.storeService.addProduct(product);
@@ -137,17 +128,11 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  loadMore() {
-    this.productsService.getProductsByPage(this.limit, this.offset)
-    .subscribe(data => {
-      //Para no sobreescribir los elementos, se concatenan para ir agregando los nuevos
-     /* Concat es un método de los arrays inmmutable, es decir no modifica el array original,
-      por lo que primero se concatena y se vuelva a asignar al arreglo para que haya una 
-      modificación y Angular corra la detección de cambios */
-      this.products = this.products.concat(data);
-      this.offset += this.limit;
-    });
+  onLoadMore() {
+    this.loadMore.emit();
   }
+
+  
 
 
 }
