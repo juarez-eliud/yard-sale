@@ -7,7 +7,7 @@ import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-category',
-  templateUrl: './category.component.html',
+  template: `<app-products [products]="products" (loadMore)="onLoadMore()"></app-products>`,
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
