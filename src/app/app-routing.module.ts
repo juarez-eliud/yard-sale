@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'recovery',
     component: RecoveryComponent,
+  },
+  {
+    path: '**',
+    component: NotFoundComponent 
   }
 ];
 
