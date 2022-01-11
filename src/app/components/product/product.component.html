@@ -4,5 +4,9 @@
 <h2>{{ product.price | currency:'COP' }}</h2>
 <p>{{ product.title }}</p>
 <p>{{ product?.taxes | currency:'COP' }}</p>
-<button (click)="onShowDatail()">Ver detalle</button>
+<!-- <button (click)="onShowDatail()">Ver detalle</button> -->
+<!-- Como este componente se está reutilizando para home y para category no
+se agrega una ruta especifica en el routerLink como /home sino más bien se coloca un punto el
+cual envía el queryParams dependiendo de la ruta en la que se encuentre -->
+<button routerLink="." [queryParams]="{product: product.id}">Ver detalle</button>
 <button (click)="onAddToCart()">Add cart</button>

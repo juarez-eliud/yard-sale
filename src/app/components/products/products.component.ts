@@ -16,6 +16,15 @@ export class ProductsComponent   {
   myShoppingCart: Product[] = [];
   total = 0;
   @Input() products: Product[] = [];
+  //Se implementa con set para detectar cambios en productId de forma dinamica
+  @Input() set productId(id: string | null){
+    if(id) {
+      this.onShowDetail(id);
+    }
+  }
+
+
+
   @Output() loadMore = new EventEmitter();
   showProductDetail = false;
 
@@ -54,9 +63,12 @@ export class ProductsComponent   {
 
   onShowDetail(id: string) {
     this.statusDetail = 'loading';
+    //Si está cerrada la venana de detalle entonces se abre
+    if(!this.showProductDetail) {
+      this.showProductDetail =  true;
+    }
     this.productsService.getProduct(id)
-      .subscribe(data => {
-        this.toggleProductDetail();
+      .subscribe(data => {        
         this.productChosen = data;
         console.log('product', data);
         this.statusDetail = 'success';
