@@ -7,6 +7,9 @@ import { MyCartComponent } from './pages/my-cart/my-cart.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { AuthGuard } from '../guards/auth.guard';
+import { ProfileComponent } from './pages/profile/profile.component';
+
 
 const routes: Routes = [
   {
@@ -46,6 +49,11 @@ const routes: Routes = [
       {
         path: 'recovery',
         component: RecoveryComponent,
+      },
+      {
+        path: 'profile',
+        canActivate: [AuthGuard],
+        component: ProfileComponent
       }
     ]
   }
