@@ -14,6 +14,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavComponent } from './components/nav/nav.component';
 import { SwiperModule } from 'swiper/angular';
 import { SharedModule } from '../shared/shared.module';
+import { QuicklinkModule } from 'ngx-quicklink';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     WebsiteRoutingModule,
     SwiperModule,
-    SharedModule
+    SharedModule,
+    QuicklinkModule
   ]
 })
 export class WebsiteModule { }
