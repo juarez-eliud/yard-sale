@@ -44,7 +44,8 @@ export class AppComponent implements OnInit {
     this.usersService.create({
       name: 'Eliud',
       email: 'ejuarez@hotmail.com',
-      password: '0123456'
+      password: '0123456',
+      role: 'customer'
     })
     .subscribe(rta => {
       console.log(rta);

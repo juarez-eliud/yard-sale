@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'cms/grid',
+        redirectTo: 'grid',
         pathMatch: 'full'
       },
       {
