@@ -12,7 +12,9 @@ export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe(data => {
+    /* Si ingresa a profile es porque el guard dejó acceder entonces 
+    se tiene datos de un usuario */
+    this.authService.user$.subscribe(data => {
       this.user = data;
     });
   

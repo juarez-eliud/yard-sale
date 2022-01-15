@@ -6,6 +6,7 @@ import { User } from '../models/users.model';
 import { ControlContainer } from '@angular/forms';
 import { TokenService } from './token.service';
 import { switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
  
 
 
@@ -15,6 +16,9 @@ import { switchMap, tap } from 'rxjs/operators';
 export class AuthService {
 
   private apiUrl = `${environment.API_URL}/api/auth`;
+  //De esta forma se controla la sesión del usuario de forma reactiva
+  private user = new BehaviorSubject<User | null >(null);
+  user$ = this.user.asObservable();
 
   constructor(private http: HttpClient, private tokenService: TokenService) { }
 
@@ -40,12 +44,17 @@ export class AuthService {
    /*  let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`); */
 
-    return this.http.get<User>(`${this.apiUrl}/profile`, {
-      /* headers: {
+    /* return this.http.get<User>(`${this.apiUrl}/profile`, {
+      headers: {
         Authorization: `Bearer ${token}`,
-        //'Content-type': 'application/json'
-      } */
-    });
+        'Content-type': 'application/json'
+      }
+    }); */
+    //Los datos se dejan en un store global para que puedan ser consumidos
+    return this.http.get<User>(`${this.apiUrl}/profile`)
+    .pipe(
+      tap(user => this.user.next(user))
+    );
   }
 
   loginAndGetProfile(email: string, password: string) {
@@ -54,6 +63,12 @@ export class AuthService {
       switchMap(() => this.getProfile()),
     )
   }
+
+  logout() {
+    this.tokenService.removeToken();
+  }
+
+  
 
   
 }
