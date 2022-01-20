@@ -9,6 +9,8 @@ import { ProductComponent } from './components/product/product.component';
 import { ImgComponent } from './components/img/img.component';
 import { RouterModule } from '@angular/router';
 import { SwiperModule } from 'swiper/angular';
+import { FundamentalComponent } from './components/fundamental/fundamental.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import { SwiperModule } from 'swiper/angular';
     HighlightDirective,
     ProductsComponent,
     ProductComponent,
-    ImgComponent
+    ImgComponent,
+    FundamentalComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    SwiperModule
+    SwiperModule,
+    FormsModule
   ],
   exports: [
     ReversePipe,

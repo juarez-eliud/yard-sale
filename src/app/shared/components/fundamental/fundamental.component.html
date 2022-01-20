@@ -1,0 +1,114 @@
+<h2>{{ myProduct.price | currency}}</h2>
+<p>{{myProduct.name}}</p>
+
+<p>Nombre {{ myProduct.name }}</p>
+<input type="text" [value]="myProduct.name" (keyup)="changeName($event)" />
+<!-- Escuchar diferentes eventos de keyup -->
+<input type="text" [value]="myProduct.name" (keyup.esc)="changeName2($event)" />
+
+<!-- Realizar validaciones directamente en ngModel, ya que trabaja con elementos nativos de HTML -->
+<input type="number" max="50" min="10" required #nameInput="ngModel" [(ngModel)]="myProduct.price" />
+<p>Valid: {{nameInput.valid}}</p>
+<hr/>
+
+<div [ngSwitch]="myProduct.name">
+    <div *ngSwitchCase="'Julian'">
+        <p>Julian </p>
+    </div>
+
+    <div *ngSwitchCase="'David'">
+        <p>David </p>
+    </div>
+
+    <div *ngSwitchCase="'Nicolas'">
+        <p>Nicolas</p>
+    </div>
+    <div *ngSwitchDefault>
+        <p>No hace match</p>
+    </div>
+
+</div>
+
+<input type="text" [(ngModel)]="name" >
+<button (click)="addName()">Agregar</button>
+
+<ul>
+    <li *ngIf="names.length === 0">No hay nombres</li>
+    <li *ngFor="let name of names; index as i">
+        {{i}} {{name}} <button (click)="delete(i,name )">Delete </button>
+    </li>
+</ul>
+
+<h1>Class & Style</h1>
+<!-- Dynamic Class & Style -->
+<input type="number" max="50" min="10" required #nameInput2="ngModel" [(ngModel)]="myProduct.price" />
+<!-- Aplicando dinamismo de clases -->
+<p class="message-error" [class.invalid]="nameInput2.invalid">
+El campo es requerido
+</p>
+<label for="">Nombre</label>
+<input type="text" max="50" min="10" required #nameInput3="ngModel" [(ngModel)]="myProduct.name" />
+<!-- Modificación de estilo de forma directa(inline style) -->
+<p [style.font-style]="nameInput3.invalid ? 'italic' : 'normal'" >Texto texto texto</p>
+
+<input type="number" [(ngModel)]="widthImg" />
+<img  [style.width.px]="widthImg" [src]="myProduct.image" alt="">
+<!-- <img  [style.width.%]="widthImg" [src]="myProduct.image" alt=""> -->
+<!-- Si se quieren manipular stilos con base en variables antes de ser definidas se generará un error (hoisting)-->
+
+
+<h1>NgClass & NgStyle</h1>
+<input type="text" required #nameInput4="ngModel" [(ngModel)]="myProduct.name" />
+Add multiple classes
+<hr class="line-error" 
+    [ngClass]="{
+        'valid': nameInput4.valid,
+        'invalid': nameInput4.invalid
+    }">
+<p  class="message-error"> </p>
+
+<div>
+    <input type="number" [(ngModel)]="box.width" />
+    <input type="number" [(ngModel)]="box.height" />
+    <input type="color" [(ngModel)]="box.background" />
+</div>
+<div [ngStyle]="{
+    'width.px': box.width,
+    'height.px': box.height,
+    'background-color': box.background,
+    'display': 'block'
+}">
+</div>
+
+<hr>
+
+<h1>Formulario</h1>
+<form (ngSubmit)="onRegister()" #myForm="ngForm">
+    <div class="input-group">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" required #inputName="ngModel" id="name" [(ngModel)]="register.name" >
+        <p class="message-error" [class.invalid]="inputName.invalid">
+          El Nombre es requerido
+        </p>
+    </div>
+
+    <div class="input-group">
+        <label for="email">Email</label>
+        <input type="text" name="email" required  #inputEmail="ngModel" id="email" [(ngModel)]="register.email" >
+        <p class="message-error" [class.invalid]="inputEmail.invalid">
+            El Email es requerido
+        </p>
+    </div>
+
+    <div class="input-group">
+        <label for="password">Contraeña</label>
+        <input type="text" name="password" required #inputPassword="ngModel" id="password" [(ngModel)]="register.password" >
+        <p class="message-error" [class.invalid]="inputPassword.invalid">
+            El Contraeña es requerida
+        </p>
+
+    </div>
+    <!-- Para un botón de envío es obligatorio colocar el tipo de botón -->
+    <button [disabled]="myForm.invalid" type="submit">Registrar</button>
+
+</form>
