@@ -5,8 +5,9 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 })
 export class HighlightDirective {
 
+  //Escucha evento
   @HostListener('mouseenter') onMouseEnter() {
-    this.element.nativeElement.style.backgroundColor = 'red';
+    this.element.nativeElement.style.backgroundColor = '#11ffeeff';
   }
 
   @HostListener('mouseleave') onMouseLeave() {
@@ -14,9 +15,10 @@ export class HighlightDirective {
   }
 
   constructor(
+    //Servicio utilizado para manipular el DOM
     private element: ElementRef
   ) {
-    // this.element.nativeElement.style.backgroundColor = 'red';
+    //this.element.nativeElement.style.backgroundColor = 'red';
   }
 
 }

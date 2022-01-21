@@ -1,5 +1,5 @@
-<img (load)="imgLoaded()" (error)="imgError()" [src]="img" *ngIf="img; else elseImg">
+<!-- El evento (error) de img indica que ocurrió un error
+al intentar obtener la imagen y (load) indica cuando cargó 
+de manera correcta -->
+<img (load)="imgLoaded()" (error)="imgError()" [src]="img">
 <!-- <h3>{{ counter }}</h3> -->
-<ng-template #elseImg>
-  <img [src]="imageDefault" alt="">
-</ng-template>

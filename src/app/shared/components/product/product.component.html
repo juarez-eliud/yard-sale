@@ -4,9 +4,24 @@
 <h2>{{ product.price | currency:'COP' }}</h2>
 <p>{{ product.title }}</p>
 <p>{{ product?.taxes | currency:'COP' }}</p>
+<p appHighlight> {{ product?.description }} </p>
 <!-- <button (click)="onShowDatail()">Ver detalle</button> -->
 <!-- Como este componente se está reutilizando para home y para category no
-se agrega una ruta especifica en el routerLink como /home sino más bien se coloca un punto el
-cual envía el queryParams dependiendo de la ruta en la que se encuentre -->
+se agrega una ruta especifica en el routerLink como /home sino más bien se coloca un punto,
+para que Angular entienda que el queryParams lo debe de enviar a la ruta en la que se encuentre,
+de esta manera pude cambiar entre la rurta de home y  category -->
 <button routerLink="." [queryParams]="{product: product.id}">Ver detalle</button>
 <button (click)="onAddToCart()">Add cart</button>
+
+
+
+<!-- ---Escuchar diferentes eventos de keyup, tecla alt y escape -->
+<!-- <p>Nombre {{ product.title }}</p>
+<input type="text" [value]="product.title" (keyup.alt)="changeName($event)" />
+<input type="text" [value]="product.title" (keyup.esc)="changeName($event)" /> -->
+
+<!-- ---Realizar validaciones directamente en ngModel, ya que trabaja con elementos nativos de HTML -->
+<!-- <input type="number" max="50" min="10" required #nameInput="ngModel" [(ngModel)]="product.price" />
+<p>Valid: {{nameInput.valid}}</p>
+<hr/>
+ -->

@@ -7,6 +7,7 @@ import { formatDistance } from 'date-fns';
 export class TimeAgoPipe implements PipeTransform {
 
   transform(value: Date): string {
+    //Retorna el tiempo transcurrido de una fecha
     return formatDistance(new Date(), value);
   }
 

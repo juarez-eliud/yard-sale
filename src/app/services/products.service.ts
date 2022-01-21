@@ -20,7 +20,7 @@ export class ProductsService {
 
   getAllProducts(limit?: number, offset?: number) {
     let httpParams  = new HttpParams();  
-    if(limit && offset) {
+    if(limit  != null && offset  != null) {
       httpParams = httpParams.set('limit', limit);
       httpParams = httpParams.set('offset', offset);
     }

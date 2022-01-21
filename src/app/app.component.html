@@ -19,3 +19,6 @@
 <p>{{ showImg}}</p>
 <app-img *ngIf="showImg" (loaded)="onLoaded($event)" [img]="imgParent"></app-img>
 <hr/> -->
+<!-- El *ngIf="showImg" se usa para analizar el ngOnDestroy, si showImg es true
+ se muestra el componente, es decir crearía la instancia y correría todo el ciclo de vida -->
+

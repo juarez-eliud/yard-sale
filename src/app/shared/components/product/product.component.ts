@@ -8,7 +8,14 @@ import { Product } from 'src/app/models/product.model';
 })
 export class ProductComponent {
 
-  //Es importante establecer un estado inicial para evitar errores
+  
+  /* El nombre de input también se puede especificar dentro de los paréntesis,
+  ejemplo: @Input('myProduct'), pero normalmente no se utiliza ya por lo general
+  se recibe con el nombre de la variable */
+  /* Es importante establecer un estado inicial para evitar errores, sin embargo
+  se puede utilizar el operador Non-null assertion operator, el cual se usa para 
+  afirmar que el elemento no es null ni undefined y de esta forma no marque un 
+  error de que no se están inicializando las variables, ejemplo: @Input() product!: Product;*/
   @Input() product: Product = {
     id: '',
     price: 0,
@@ -30,6 +37,9 @@ export class ProductComponent {
     this.showProduct.emit(this.product.id);
   }
 
-  
+  changeName(event: Event) {
+    const element = event.target as HTMLInputElement;
+    this.product.title = element.value;
+  }  
 
 }

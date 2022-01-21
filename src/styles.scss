@@ -7,6 +7,12 @@
   font-family: 'Quicksand', sans-serif;
 }
 
+
+/* Los estilos de cada componente solo tienen un alcance en su componente,
+si se requiere modificar el estilo de cualquier componente 
+el scope tiene que ser global  */
+
+
 .products--grid {
   app-img {
     img {

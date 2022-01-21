@@ -11,7 +11,7 @@ import { ProductsService } from 'src/app/services/products.service';
 export class HomeComponent implements OnInit {
 
   products: Product[] = [];
-  limit = 1;
+  limit = 10;
   offset = 0;
   productId: string | null = null; 
   
@@ -42,6 +42,11 @@ export class HomeComponent implements OnInit {
       this.products = this.products.concat(data);
       this.offset += this.limit;
     });
+  }
+
+  onScroll(event: Event) {
+    const element = event.target as HTMLElement;
+    console.log(element.scrollTop);
   }
 
 }
